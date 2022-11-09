@@ -3,23 +3,16 @@
 # https://users.aalto.fi/~tjunttil/2020-DP-AUT/notes-sat/solving.html
 # https://github.com/mxklabs/mxklabs-python/tree/master/mxklabs/dimacs
 
-# read the file into string
-def read_input_file(filename):
-    file = open(filename)
-    content = file.readlines()
-    parsed_content = ""
-    for line in content:
-        # since we are dealing with only single digits
-        # we can remove spaces in the middle of the numbers
-        # to ease iteration in future
-        parsed_content += ''.join(line.split())
-    return parsed_content
+## three different strategies: the DPLL algorithm without any further heuristics and two different heuristics
+
+#1: Read DIMACS input
 
 
-# convert string into matrix to represent input of the puzzle
-def generate_matrix(string):
-    matrix = [[0 for x in range(9)] for x in range(9)]
-    for i in range(9):
-        for j in range(9):
-            matrix[i][j] = string[i * 9 + j]
-    return matrix
+#2: Encode Sudoku rules as clauses in DIMACS
+
+
+#3: Encode a given puzzle in DIMACS
+
+
+#4: Give (2)+(3) as input to (1) and return the solution to the given puzzle
+
