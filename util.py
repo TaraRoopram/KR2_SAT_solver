@@ -1,5 +1,6 @@
 from SAT_solver import read_dimacs_input
 
+
 def find_unit_clauses(clauses):
     unit_clauses = filter(lambda c: len(c) == 1, clauses)
     return list(unit_clauses)
