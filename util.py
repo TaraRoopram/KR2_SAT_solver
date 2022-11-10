@@ -1,18 +1,21 @@
-from SAT_solver import read_dimacs_input
-
 def find_unit_clauses(clauses):
     unit_clauses = filter(lambda c: len(c) == 1, clauses)
-    return list(unit_clauses)
+    flattened = map(lambda c: c[0], unit_clauses)
+    return list(flattened)
 
 
 def find_pure_literals(clauses):
-    pure_literals = list(filter(
-        lambda clause: list(filter(
-            lambda literal: is_pure_literal(literal, clauses),
-            clause)),
-        clauses))
+    pure_literals = []
+    for c in clauses:
+        for l in c:
+            if is_pure_literal(l, clauses):
+                pure_literals.append(l)
 
     return pure_literals
+
+
+def is_unit_clause(clause):
+    return len(clause) == 1
 
 
 def is_pure_literal(literal, clauses):
@@ -32,10 +35,21 @@ def negate(literal):
     return literal * -1
 
 
-clauses = read_dimacs_input("sudoku1.cnf")
+def remove_literal_all_clauses(target_literal, clauses):
+    for clause in clauses:
+        for literal in clause:
+            if literal == target_literal:
+                clause.remove(literal)
+                if len(clause) == 0:
+                    clauses.remove(clause)
 
-unit_clauses = find_unit_clauses(clauses)
-print(unit_clauses)
+    return clauses
 
-pure_literals = find_pure_literals(clauses)
-print(pure_literals)
+
+def remove_clauses_containing_literal(target_literal, clauses):
+    for clause in clauses:
+        for literal in clause:
+            if literal == target_literal:
+                clauses.remove(clause)
+
+    return clauses
