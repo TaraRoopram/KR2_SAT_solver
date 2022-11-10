@@ -51,6 +51,26 @@ read_dimacs_input("sudoku1.cnf")
 #     cnf2 = cnf + {!X}
 #     return solve_dpll(cnf1)+solve_dpll(cnf2)
 
+def propagate_unit_clauses(clauses):
+    unit_clauses = util.find_unit_clauses(clauses)
+
+    for unit_clause in unit_clauses:
+        clauses = list(filter(lambda c: unit_clause not in c or len(c) == 1, clauses))
+        clauses = util.remove_literal_all_clauses(util.negate(unit_clause), clauses)
+
+    return clauses
+
+
+def eliminate_pure_literals(clauses):
+    pure_literals = util.find_pure_literals(clauses)
+    print(len(pure_literals))
+
+    for pure_literal in pure_literals:
+        clauses = util.remove_clauses_containing_literal(pure_literal, clauses)
+        clauses.append([pure_literal])
+
+    return clauses
+
 
 def main():
     clauses, num_vars = parse_cnf(sys.argv[1])
