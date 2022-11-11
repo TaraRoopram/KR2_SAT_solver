@@ -1,3 +1,4 @@
+
 def find_unit_clauses(clauses):
     unit_clauses = filter(lambda c: len(c) == 1, clauses)
     flattened = map(lambda c: c[0], unit_clauses)
@@ -40,8 +41,8 @@ def remove_literal_all_clauses(target_literal, clauses):
         for literal in clause:
             if literal == target_literal:
                 clause.remove(literal)
-                if len(clause) == 0:
-                    clauses.remove(clause)
+                # if len(clause) == 0:
+                #     clauses.remove(clause)
 
     return clauses
 
@@ -59,7 +60,7 @@ def count_literals(clauses):
     literal_count = {}
     for clause in clauses:
         for literal in clause:
-            if literal in clause:
+            if literal in literal_count:
                 literal_count[literal] += 1
             else:
                 literal_count[literal] = 1
