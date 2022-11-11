@@ -5,6 +5,7 @@
 '''
 
 import sys
+from util import *
 
 
 # Helpful links
@@ -77,8 +78,10 @@ def propagate_unit_clauses(clauses):
     unit_clauses = util.find_unit_clauses(clauses)
 
     for unit_clause in unit_clauses:
-        clauses = list(filter(lambda c: unit_clause not in c or len(c) == 1, clauses))
-        clauses = util.remove_literal_all_clauses(util.negate(unit_clause), clauses)
+        clauses = list(
+            filter(lambda c: unit_clause not in c or len(c) == 1, clauses))
+        clauses = util.remove_literal_all_clauses(
+            util.negate(unit_clause), clauses)
 
     return clauses
 
@@ -93,6 +96,41 @@ def eliminate_pure_literals(clauses):
 
     return clauses
 
+# Alternatieve implementatie
+
+
+def resolve_formula_for_literal(current_formula, literal):
+    '''
+        Input: formula and a (true) literal
+        Output: formula that is resolved 
+        Body:
+            -assume given unit to be true
+            - remove clause if unit is in it (entire clause is true because of 'or')
+            - modify clauses that contain the negation of unit, by removing the negation of the unit ('or' makes literal reduntant as clause needs to evaluate to true)
+    '''
+    result_formula = []
+    for clause in current_formula:
+        if literal in clause:
+            continue
+        if negate(literal) in clause:
+            modified_clause = [x for x in clause if x != negate(literal)]
+            # Empty clause = False. Thus continue on alternative branch.
+            if not modified_clause:
+                return -1
+            result_formula.append(modified_clause)
+        else:
+            result_formula.append(clause)
+    return result_formula
+
+
+def handle_pure_literals(clauses):
+    literal_count = count_literals(clauses)
+    pure_clauses = get_pures(literal_count)
+    pure_assignment = []
+    for pure_clause in pure_clauses:
+        clauses = resolve_formula_for_literal(clauses, pure_clause)
+    pure_assignment = pure_clauses
+    return clauses, pure_assignment
 
 # def main():
 #     clauses, num_vars = read_dimacs_input(sys.argv[1])

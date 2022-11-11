@@ -53,3 +53,22 @@ def remove_clauses_containing_literal(target_literal, clauses):
                 clauses.remove(clause)
 
     return clauses
+
+
+def count_literals(clauses):
+    literal_count = {}
+    for clause in clauses:
+        for literal in clause:
+            if literal in clause:
+                literal_count[literal] += 1
+            else:
+                literal_count[literal] = 1
+    return literal_count
+
+
+def get_pures(literal_count):
+    pure_clauses = []
+    for literal, count in literal_count.items():
+        if negate(literal) not in literal_count:
+            pure_clauses.append(literal)
+    return pure_clauses
