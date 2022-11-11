@@ -26,7 +26,6 @@ def read_dimacs_input(filename):
             clauses.append(clause)
         return clauses  # prints clauses as list of lists
 
-
 # 2: Encode Sudoku rules as clauses in DIMACS
 # reads sudoku-rules-4x4.txt; to print add print() statement
 read_dimacs_input("sudoku-rules-4x4.txt")
@@ -52,11 +51,11 @@ read_dimacs_input("sudoku1.cnf")
 #     return solve_dpll(cnf1)+solve_dpll(cnf2)
 
 
-def main():
-    clauses, num_vars = parse_cnf(sys.argv[1])
-    print(clauses)
-    print(num_vars)
-
-
-if __name__ == '__main__':
-    main()
+# def main():
+#     clauses, num_vars = read_dimacs_input(sys.argv[1])
+#     print(clauses)
+#     print(num_vars)
+#
+#
+# if __name__ == '__main__':
+#     main()
