@@ -16,15 +16,22 @@ import sys
 # three different strategies: the DPLL algorithm without any further heuristics and two different heuristics
 
 # 1: Read DIMACS input
-def read_dimacs_input(filename):
+def parse_cnf(filename):
+    '''
+    Input: file with all clauses in DIMACS format
+    Output: array with clauses, number of variables
+    '''
     clauses = []
-    with open(filename, 'r') as file:
-        next(file)  # skips first row in file
-        for line in file:
-            data = line.split()
-            clause = [int(x) for x in line[:-2].split()]
-            clauses.append(clause)
-        return clauses  # prints clauses as list of lists
+    for line in open(filename):
+        if line.startswith("c"):
+            continue
+        if line.startswith("p"):
+            num_vars = line.split()[2]
+            continue
+        clause = [int(x) for x in line[:-2].split()]
+        clauses.append(clause)
+    return clauses, num_vars
+
 
 # 2: Encode Sudoku rules as clauses in DIMACS
 # reads sudoku-rules-4x4.txt; to print add print() statement
@@ -50,12 +57,14 @@ read_dimacs_input("sudoku1.cnf")
 #     cnf2 = cnf + {!X}
 #     return solve_dpll(cnf1)+solve_dpll(cnf2)
 
+
 def check_empty_clauses(clauses):
     """ Checks whether set of clauses is empty; (sat + empty of DP procedure) """
     for clause in clauses:
         if len(clause) == 0:
-            return "unsat" #True
-    return "sat" #False
+            return "unsat"  # True
+    return "sat"  # False
+
 
 c = parse_cnf("sudoku1.cnf")
 if check_empty_clauses(c) == "sat":
@@ -68,8 +77,10 @@ def propagate_unit_clauses(clauses):
     unit_clauses = util.find_unit_clauses(clauses)
 
     for unit_clause in unit_clauses:
-        clauses = list(filter(lambda c: unit_clause not in c or len(c) == 1, clauses))
-        clauses = util.remove_literal_all_clauses(util.negate(unit_clause), clauses)
+        clauses = list(
+            filter(lambda c: unit_clause not in c or len(c) == 1, clauses))
+        clauses = util.remove_literal_all_clauses(
+            util.negate(unit_clause), clauses)
 
     return clauses
 
