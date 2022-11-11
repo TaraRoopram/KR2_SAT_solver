@@ -50,6 +50,20 @@ read_dimacs_input("sudoku1.cnf")
 #     cnf2 = cnf + {!X}
 #     return solve_dpll(cnf1)+solve_dpll(cnf2)
 
+def check_empty_clauses(clauses):
+    """ Checks whether set of clauses is empty; (sat + empty of DP procedure) """
+    for clause in clauses:
+        if len(clause) == 0:
+            return "unsat" #True
+    return "sat" #False
+
+c = parse_cnf("sudoku1.cnf")
+if check_empty_clauses(c) == "sat":
+    print("continue with DP procedure")
+else:
+    print("terminate DP procedure")
+
+
 def propagate_unit_clauses(clauses):
     unit_clauses = util.find_unit_clauses(clauses)
 
