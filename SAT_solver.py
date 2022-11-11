@@ -35,11 +35,11 @@ def parse_cnf(filename):
 
 # 2: Encode Sudoku rules as clauses in DIMACS
 # reads sudoku-rules-4x4.txt; to print add print() statement
-read_dimacs_input("sudoku-rules-4x4.txt")
+# read_dimacs_input("sudoku-rules-4x4.txt")
 
 # 3: Encode a given puzzle in DIMACS
 # reads sudoku1.cnf; to print add print() statement
-read_dimacs_input("sudoku1.cnf")
+# read_dimacs_input("sudoku1.cnf")
 
 # 4: Give (2)+(3) as input to (1) and return the solution to the given puzzle
 
@@ -77,10 +77,8 @@ def propagate_unit_clauses(clauses):
     unit_clauses = util.find_unit_clauses(clauses)
 
     for unit_clause in unit_clauses:
-        clauses = list(
-            filter(lambda c: unit_clause not in c or len(c) == 1, clauses))
-        clauses = util.remove_literal_all_clauses(
-            util.negate(unit_clause), clauses)
+        clauses = list(filter(lambda c: unit_clause not in c or len(c) == 1, clauses))
+        clauses = util.remove_literal_all_clauses(util.negate(unit_clause), clauses)
 
     return clauses
 
