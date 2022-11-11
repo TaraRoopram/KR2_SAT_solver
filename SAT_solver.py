@@ -192,17 +192,17 @@ dpll(F, literal) {
     remove clauses containing literal
     shorten clauses containing ~literal
     if (F contains no clauses) :
-        return ______
+        return "sat" (True)
     if (F contains empty clause) :
-        return ______
+        return "unsat" (False)
     if (F contains a unit or pure L) :
-        return ______
+        return DPLL(F, L = True)
 
-    choose P in F
+    choose P in F (or another heuristic)
     
     if (dpll(F, ~P)) :
-        return true;
+        return True;
     else :
-        return ______
+        return DPLL(F, L = True)
 }
 """
