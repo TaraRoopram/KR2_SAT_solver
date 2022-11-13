@@ -47,8 +47,20 @@ def eliminate_pure_literals(clauses, assignments):
 
     return clauses
 
+def tautology(clauses, assignments):
+    new_clauses = []
+    for clause in clauses:
+        for literal in clause:
+            if util.negate(literal) not in clause:
+                new_clauses.append(clause)
+    
+    clauses = new_clauses
+    return clauses
+
 
 def dpll(clauses, assignments, enable_elim_pure_literals=False):
+    clauses = tautology(clauses, assignments)
+
     clauses = propagate_unit_clauses(clauses, assignments)
     if clauses is False:
         return False
