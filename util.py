@@ -95,3 +95,18 @@ def read_dimacs_file(path):
         return clauses
 
 
+def parse_cnf(filename):
+    '''
+    Input: file with all clauses in DIMACS format
+    Output: array with clauses, number of variables
+    '''
+    clauses = []
+    for line in open(filename):
+        if line.startswith("c"):
+            continue
+        if line.startswith("p"):
+            num_vars = line.split()[2]
+            continue
+        clause = [int(x) for x in line[:-2].split()]
+        clauses.append(clause)
+    return clauses #, num_vars

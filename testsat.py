@@ -60,7 +60,9 @@ def find_pure_literals(clauses):
 
 def dpll(clauses):
     # if Σ contains p v -p then DP(\Σ{p v -p}) (Taut)
-
+    for clause in clauses:
+        if clause in clauses:
+            clauses.remove(-clause)
     # If Σ = Ø, the sentence is satisfiable (Sat)
     if not clauses:
         return True
@@ -75,12 +77,13 @@ def dpll(clauses):
     # if Σ has pure literal l then DP(Σ{l = True}) (Pure) --> SKIP
     # for pure_literal in find_pure_literals(clauses):
     #     return unit_propagation(clauses, pure_literal)
-
+    # If above branches did not succeed, try a random boolean value:
+    return dpll(unit_propagation(clauses, clauses[0][0])) or dpll(unit_propagation(clauses, -clauses[0][0]))
 
 c = parse_cnf("sudoku1.cnf")
 print(dpll(c))
 
 
-
+# Encode a given puzzle in DIMACS format --> convert puzzle to dimacs
 
 
