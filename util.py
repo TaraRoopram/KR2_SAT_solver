@@ -1,8 +1,6 @@
-
 def find_unit_clauses(clauses):
     unit_clauses = filter(lambda c: len(c) == 1, clauses)
-    flattened = map(lambda c: c[0], unit_clauses)
-    return list(flattened)
+    return list(unit_clauses)
 
 
 def find_pure_literals(clauses):
@@ -10,7 +8,7 @@ def find_pure_literals(clauses):
     for c in clauses:
         for l in c:
             if is_pure_literal(l, clauses):
-                pure_literals.append(l)
+                pure_literals.append([l])
 
     return pure_literals
 
@@ -33,7 +31,15 @@ def is_negated(literal):
 
 
 def negate(literal):
-    return literal * -1
+    return -literal
+
+
+def positive(literal):
+    return abs(literal)
+
+
+def negative(literal):
+    return -abs(literal)
 
 
 def remove_literal_all_clauses(target_literal, clauses):
@@ -73,3 +79,19 @@ def get_pures(literal_count):
         if negate(literal) not in literal_count:
             pure_clauses.append(literal)
     return pure_clauses
+
+
+def read_dimacs_file(path):
+    with open(f"{path}") as file:
+        header = file.readline().split(" ")
+        num_variables = header[2]
+
+        clauses = []
+        for clause in file:
+            parsed = list(filter(None, clause[:-1].split(" ")[:-1]))
+            parsed = [int(var) for var in parsed]
+            clauses.append(parsed)
+
+        return clauses
+
+
