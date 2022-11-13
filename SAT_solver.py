@@ -114,7 +114,7 @@ def handle_pure_literals(clauses):
 
 
 # print(handle_pure_literals(c))
-clauses, num_var = parse_cnf("sudoku1.cnf")
+# clauses, num_var = parse_cnf("sudoku1.cnf")
 # print(handle_pure_literals(clauses))
 
 # print(propagate_unit_clauses(clauses))
@@ -129,7 +129,7 @@ clauses, num_var = parse_cnf("sudoku1.cnf")
 # if __name__ == '__main__':
 #     main()
 
-print(resolve_formula_for_literal(clauses, 141))
+# print(resolve_formula_for_literal(clauses, 141))
 
 
 def unit_propagation(clauses):
@@ -169,8 +169,8 @@ def dpll(clauses, literal):
     return dpll(clauses, abs(p))
 
 
-literal = util.find_unit_clauses(clauses)[0]
-print(dpll(parse_cnf("sudoku1.cnf"), literal))
+# literal = util.find_unit_clauses(clauses)[0]
+# print(dpll(parse_cnf("sudoku1.cnf"), literal))
 
 # Pseudocode DPLL --> https://github.com/safwankdb/SAT-Solver-using-DPLL
 # solve_dpll(cnf):
