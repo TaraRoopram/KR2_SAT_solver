@@ -14,7 +14,8 @@ def propagate_unit_clauses(clauses, assignments):
                 if util.is_unit_clause(clause):
                     return False
 
-                propagated = list(filter(lambda c: c != util.negate(unit_clause), clause))
+                propagated = list(
+                    filter(lambda c: c != util.negate(unit_clause), clause))
                 propagated_clauses.append(propagated)
             elif unit_clause not in clause:
                 propagated_clauses.append(clause)
@@ -37,7 +38,8 @@ def eliminate_pure_literals(clauses, assignments):
                 if len(clause) == 1:
                     return False
 
-                eliminated = list(filter(lambda c: c != util.negate(pure_literal), clause))
+                eliminated = list(
+                    filter(lambda c: c != util.negate(pure_literal), clause))
                 eliminated_pure_literals.append(eliminated)
             elif pure_literal not in clause:
                 eliminated_pure_literals.append(clause)
@@ -47,13 +49,14 @@ def eliminate_pure_literals(clauses, assignments):
 
     return clauses
 
+
 def tautology(clauses, assignments):
     new_clauses = []
     for clause in clauses:
         for literal in clause:
             if util.negate(literal) not in clause:
                 new_clauses.append(clause)
-    
+
     clauses = new_clauses
     return clauses
 
@@ -92,17 +95,20 @@ def jeroslow_wang_onesided(clauses, weight=2):
                 weights[literal] += weight ** -len(clause)
             else:
                 weights[literal] = weight ** -len(clause)
-    return max(weights, key=weights.get) #selects literal with the highest value of j
+    # selects literal with the highest value of j
+    return max(weights, key=weights.get)
 
 
 def main():
-    clauses = util.read_dimacs_file("data\dimacs\sudoku\sudoku1.cnf")
+    clauses = util.read_dimacs_file("data/dimacs/sudoku/sudoku1.cnf")
+    jeroslow_wang_onesided(clauses)
     assignments = {}
 
     start = timeit.default_timer()
 
-    is_satisfiable = dpll(clauses, assignments, enable_elim_pure_literals=False)
-    #jw_one = jeroslow_wang_onesided(clauses) --> create rule to determine when this heuristic is chosen https://github.com/marcmelis/dpll-sat/blob/master/solvers/base_sat.py
+    is_satisfiable = dpll(clauses, assignments,
+                          enable_elim_pure_literals=False)
+    # jw_one = jeroslow_wang_onesided(clauses) --> create rule to determine when this heuristic is chosen https://github.com/marcmelis/dpll-sat/blob/master/solvers/base_sat.py
     stop = timeit.default_timer()
 
     print("sat" if is_satisfiable else "unsat")
