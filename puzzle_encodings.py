@@ -3,8 +3,8 @@
 from util import parse_cnf
 
 def encode(filename):
-    for line in open(filename, "r"):    
-        clauses = encode_line(line[:-1], 4)
+    for line in open(filename, "r"):
+        clauses = encode_line(line[:-1], 9)
         print(clauses)
                 
 
@@ -21,8 +21,8 @@ def encode_line(line, size):
 
 
 def get_sudoku_rules(size):
-    if size == 4:
-        rules = parse_cnf("sudoku-rules-4x4.txt")
+    if size == 9:
+        rules = parse_cnf("sudoku-rules-9x9.txt")
         return rules
 
 
@@ -41,16 +41,17 @@ def convert_to_dimacs(dimacs_filename, clauses, size):
     dimacs_file.close()
     return dimacs_file
 
-line = "...3..4114..3..."
-givens = encode_line(line, 4)
-rules = get_sudoku_rules(4) 
+line = ".94...13..............76..2.8..1......32........2...6.....5.4.......8..7..63.4..8"
+givens = encode_line(line, 9)
+rules = get_sudoku_rules(9)
 
 
 for given in givens:
     rules.insert(0, [given])
 
-dimacs = convert_to_dimacs("dimacs_test", rules, 4)
+dimacs = convert_to_dimacs("dimacs_9x9", rules, 9)
 print(dimacs)
 #print(givens)
 
+#encode("data/raw/1000_sudokus.txt")
 
