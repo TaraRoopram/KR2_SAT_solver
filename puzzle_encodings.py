@@ -1,4 +1,4 @@
-# encodings for 4x4 sudoku to DIMACS
+# encodings for 4x4 sudoku to DIMACS --> to 9x9 sudoku
 
 from util import parse_cnf
 
