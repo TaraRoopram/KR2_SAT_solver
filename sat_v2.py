@@ -1,6 +1,7 @@
 import timeit
-
 import util
+
+from heuristics.bohms import bohms
 
 
 def propagate_unit_clauses(clauses, assignments):
@@ -80,7 +81,7 @@ def dpll(clauses, assignments, enable_elim_pure_literals=False):
         if len(clause) == 0:
             return False
 
-    p = clauses[0][0]
+    p = bohms(clauses)
     if dpll(clauses + [[util.positive(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals):
         return True
     else:
