@@ -22,7 +22,7 @@ def encode_line(line, size):
 
 def get_sudoku_rules(size):
     if size == 9:
-        rules = parse_cnf("sudoku-rules-9x9.txt")
+        rules = parse_cnf("data/dimacs/sudoku_rules/sudoku-rules-9x9.txt")
         return rules
 
 
