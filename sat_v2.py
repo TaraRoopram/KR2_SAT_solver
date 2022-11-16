@@ -85,10 +85,10 @@ def dpll(clauses, assignments, enable_elim_pure_literals=False):
             return False
 
     p = jeroslow_wang_twosided(clauses)
-    if dpll(clauses + [[util.positive(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals):
+    if dpll(clauses + [[util.negate(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals):
         return True
     else:
-        return dpll(clauses + [[util.negative(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals)
+        return dpll(clauses + [[p]], assignments, enable_elim_pure_literals=enable_elim_pure_literals)
 
 
 def main():
