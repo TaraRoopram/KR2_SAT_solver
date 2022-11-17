@@ -1,6 +1,10 @@
 import timeit
-
 import util
+
+from heuristics.bohms import bohms
+from heuristics.dlcs import dlcs
+from heuristics.dlis import dlis
+from heuristics.jw import jeroslow_wang_onesided, jeroslow_wang_twosided
 
 
 def propagate_unit_clauses(clauses, assignments):
@@ -80,53 +84,11 @@ def dpll(clauses, assignments, enable_elim_pure_literals=False):
         if len(clause) == 0:
             return False
 
-    p = clauses[0][0]
-    if dpll(clauses + [[util.positive(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals):
+    p = jeroslow_wang_twosided(clauses)
+    if dpll(clauses + [[util.negate(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals):
         return True
     else:
-        return dpll(clauses + [[util.negative(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals)
-
-
-def jeroslow_wang_onesided(clauses, weight=2):
-    weights = {}
-    for clause in clauses:
-        for literal in clause:
-            if literal in weights:
-                weights[literal] += weight ** -len(clause)
-            else:
-                weights[literal] = weight ** -len(clause)
-    # selects literal with the highest value of j
-    return max(weights, key=weights.get)
-
-
-def jeroslow_wang_twosided(clauses, weight=2):
-    '''
-        input: clauses, weights
-        output: literal to split on
-        - consider all clauses, shorter clauses are more important
-        - choose literal with maximum  J(x) + J(~x)
-        - if: J(x) >= J(~x), pick x, else pick ~x
-    '''
-    weights = {}
-    max_value = -1
-    max_literal = -1
-    for clause in clauses:
-        for literal in clause:
-            if literal in weights:
-                weights[literal] += weight ** -len(clause)
-            else:
-                weights[literal] = weight ** -len(clause)
-    for literal in weights.keys():
-        if util.negate(literal) not in weights:
-            weights[util.negate(literal)] = 0
-        jw2_value = weights[literal] + weights[util.negate(literal)]
-        if jw2_value > max_value:
-            max_value = jw2_value
-            if weights[literal] >= weights[util.negate(literal)]:
-                max_literal = literal
-            else:
-                max_literal = util.negate(literal)
-    return max_literal, max_value
+        return dpll(clauses + [[p]], assignments, enable_elim_pure_literals=enable_elim_pure_literals)
 
 
 def main():
