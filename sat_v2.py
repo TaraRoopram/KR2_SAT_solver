@@ -5,6 +5,7 @@ from heuristics.bohms import bohms
 from heuristics.dlcs import dlcs
 from heuristics.dlis import dlis
 from heuristics.jw import jeroslow_wang_onesided, jeroslow_wang_twosided
+from experiments import Experiments
 
 
 def propagate_unit_clauses(clauses, assignments):
@@ -54,7 +55,7 @@ def eliminate_pure_literals(clauses, assignments):
     return clauses
 
 
-def tautology(clauses, assignments):
+def tautology(clauses):
     new_clauses = []
     for clause in clauses:
         for literal in clause:
@@ -65,8 +66,8 @@ def tautology(clauses, assignments):
     return clauses
 
 
-def dpll(clauses, assignments, enable_elim_pure_literals=False):
-    clauses = tautology(clauses, assignments)
+def dpll(clauses, assignments, experiments, enable_elim_pure_literals=False):
+    clauses = tautology(clauses)
 
     clauses = propagate_unit_clauses(clauses, assignments)
     if clauses is False:
@@ -84,21 +85,27 @@ def dpll(clauses, assignments, enable_elim_pure_literals=False):
         if len(clause) == 0:
             return False
 
-    p = jeroslow_wang_twosided(clauses)
-    if dpll(clauses + [[util.negate(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals):
+    p = jeroslow_wang_onesided(clauses)
+    
+    if dpll(clauses + [[util.negate(p)]], assignments, experiments, enable_elim_pure_literals=enable_elim_pure_literals):
         return True
     else:
-        return dpll(clauses + [[p]], assignments, enable_elim_pure_literals=enable_elim_pure_literals)
+        experiments.inc_num_backtracks()
+        return dpll(clauses + [[p]], assignments, experiments, enable_elim_pure_literals=enable_elim_pure_literals)
 
+    
 
 def main():
     clauses = util.read_dimacs_file("data/dimacs/sudoku/sudoku1.cnf")
-    jeroslow_wang_onesided(clauses)
     assignments = {}
+    
+    experiments = Experiments()
+    experiments.set_number_of_initial_clauses(len(clauses))
+    experiments.set_number_of_givens(clauses)
 
     start = timeit.default_timer()
 
-    is_satisfiable = dpll(clauses, assignments,
+    is_satisfiable = dpll(clauses, assignments, experiments,
                           enable_elim_pure_literals=False)
     # jw_one = jeroslow_wang_onesided(clauses) --> create rule to determine when this heuristic is chosen https://github.com/marcmelis/dpll-sat/blob/master/solvers/base_sat.py
     stop = timeit.default_timer()
@@ -109,5 +116,6 @@ def main():
     print(f"runtime duration (s): {stop - start}")
     #print(f"literal with highest value: {jw_one}")
 
+    print(experiments.stats)
 
 main()
