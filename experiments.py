@@ -2,7 +2,7 @@
 # Hypothese:
 # how does the number of givens influence performance and runtime of an algorithm?
 # performance = number of backtracks, number of splits, run/solving time
-
+import time
 
 # How do various SAT solving heuristics perform when applied to 9x9 sudokos?
 
@@ -10,7 +10,22 @@
 #    - number of clauses over time
 #    - average clause length over time
 #    - number of literals over time
-#    - ratio of postive to negative literals       
+#    - ratio of positive to negative literals
+
+def runtime():
+    #start time of function
+    start = time.time()
+
+    # below, add functions for which we need to find out the runtime
+
+
+    #end time of function
+    end = time.time()
+
+    # runtime --> depends on CPU but we can make relative comparisons
+    print("Execution time of the program is: ", end - start, 'seconds')
+
+runtime()
 
 class Experiments:
     def __init__(self) -> None:
@@ -33,7 +48,7 @@ class Experiments:
         pass
 
 
-    def 
+
 
     
     # https://www.scitepress.org/Papers/2022/109102/109102.pdf
