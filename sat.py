@@ -1,11 +1,10 @@
 import timeit
-import util
 
-from heuristics.bohms import bohms
+import util
+from heuristics.moms import moms
 from heuristics.dlcs import dlcs
 from heuristics.dlis import dlis
-from heuristics.jw import jeroslow_wang_onesided, jeroslow_wang_twosided
-from experiments import Experiments
+from heuristics.bohms import bohms
 
 
 def propagate_unit_clauses(clauses, assignments):
@@ -19,8 +18,7 @@ def propagate_unit_clauses(clauses, assignments):
                 if util.is_unit_clause(clause):
                     return False
 
-                propagated = list(
-                    filter(lambda c: c != util.negate(unit_clause), clause))
+                propagated = list(filter(lambda c: c != util.negate(unit_clause), clause))
                 propagated_clauses.append(propagated)
             elif unit_clause not in clause:
                 propagated_clauses.append(clause)
@@ -43,8 +41,7 @@ def eliminate_pure_literals(clauses, assignments):
                 if len(clause) == 1:
                     return False
 
-                eliminated = list(
-                    filter(lambda c: c != util.negate(pure_literal), clause))
+                eliminated = list(filter(lambda c: c != util.negate(pure_literal), clause))
                 eliminated_pure_literals.append(eliminated)
             elif pure_literal not in clause:
                 eliminated_pure_literals.append(clause)
@@ -55,20 +52,7 @@ def eliminate_pure_literals(clauses, assignments):
     return clauses
 
 
-def tautology(clauses):
-    new_clauses = []
-    for clause in clauses:
-        for literal in clause:
-            if util.negate(literal) not in clause:
-                new_clauses.append(clause)
-
-    clauses = new_clauses
-    return clauses
-
-
-def dpll(clauses, assignments, experiments, enable_elim_pure_literals=False):
-    clauses = tautology(clauses)
-
+def dpll(clauses, assignments, enable_elim_pure_literals=False):
     clauses = propagate_unit_clauses(clauses, assignments)
     if clauses is False:
         return False
@@ -85,37 +69,33 @@ def dpll(clauses, assignments, experiments, enable_elim_pure_literals=False):
         if len(clause) == 0:
             return False
 
-    p = jeroslow_wang_onesided(clauses)
-    
-    if dpll(clauses + [[util.negate(p)]], assignments, experiments, enable_elim_pure_literals=enable_elim_pure_literals):
+    p = bohms(clauses)
+    if dpll(clauses + [[util.negate(p)]], assignments, enable_elim_pure_literals=enable_elim_pure_literals):
         return True
     else:
-        experiments.inc_num_backtracks()
-        return dpll(clauses + [[p]], assignments, experiments, enable_elim_pure_literals=enable_elim_pure_literals)
+        return dpll(clauses + [[p]], assignments, enable_elim_pure_literals=enable_elim_pure_literals)
 
-    
 
 def main():
-    clauses = util.read_dimacs_file("data/dimacs/sudoku/sudoku1.cnf")
+    clauses = util.read_dimacs_file("data/dimacs/sudoku/sudoku4.cnf")
     assignments = {}
-    
-    experiments = Experiments()
-    experiments.set_number_of_initial_clauses(len(clauses))
-    experiments.set_number_of_givens(clauses)
 
     start = timeit.default_timer()
 
-    is_satisfiable = dpll(clauses, assignments, experiments,
-                          enable_elim_pure_literals=False)
-    # jw_one = jeroslow_wang_onesided(clauses) --> create rule to determine when this heuristic is chosen https://github.com/marcmelis/dpll-sat/blob/master/solvers/base_sat.py
+    is_satisfiable = dpll(clauses, assignments, enable_elim_pure_literals=False)
+
     stop = timeit.default_timer()
 
     print("sat" if is_satisfiable else "unsat")
     print(f"assignments: {sorted(assignments.items())}")
     print(f"number of assignments: {len(assignments)}")
     print(f"runtime duration (s): {stop - start}")
-    #print(f"literal with highest value: {jw_one}")
 
-    print(experiments.stats)
 
 main()
+
+# Helpful links
+# https://github.com/muneeb706/sudoku-solver/blob/master/basic_sudoku_solver/sudoku-solver.py
+# https://users.aalto.fi/~tjunttil/2020-DP-AUT/notes-sat/solving.html
+# https://github.com/DRTooley/PythonSatSolver --> implements three different algorithms incl. dpll
+# https://github.com/marcmelis/dpll-sat/blob/master/solvers/base_sat.py
