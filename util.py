@@ -88,9 +88,10 @@ def read_dimacs_file(path):
 
         clauses = []
         for clause in file:
-            parsed = list(filter(None, clause[:-1].split(" ")[:-1]))
-            parsed = [int(var) for var in parsed]
-            clauses.append(parsed)
+            if not clause.startswith("c"):
+                parsed = list(filter(None, clause[:-1].split(" ")[:-1]))
+                parsed = [int(var) for var in parsed]
+                clauses.append(parsed)
 
         return clauses
 
