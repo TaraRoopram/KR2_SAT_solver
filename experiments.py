@@ -76,11 +76,11 @@ class Experiments:
         pass
 
     def mean_std_number_of_clauses_history(self, stat_name):
-        # mean = np.mean(self.stats[stat_name])
-        # std = np.std(self.stats[stat_name])
+        mean = np.mean(self.stats[stat_name])
+        std = np.std(self.stats[stat_name])
 
-        # self.stats["Average number of clauses"] = mean
-        # self.stats["Standard deviation number of clauses"] = std
+        self.stats["Average number of clauses"] = mean
+        self.stats["Standard deviation number of clauses"] = std
         pass
 
 

@@ -121,9 +121,12 @@ def dpll(clauses, assignments, experiments, heuristic, enable_elim_pure_literals
 #         print(filename.path)
 
 def run_experiments_for_heuristic():
-    pass
+    for heuristic in Heuristic:
+        # # iterate over files in directory
+        for filename in os.scandir("data/dimacs/sudoku/9x9"):
+            run_experiment_for_file(filename)
 
-def run_experiment_for_file():
+def run_experiment_for_file(filename, heuristic):
     filtered = []
     for filename in os.scandir("data/dimacs/sudoku/9x9"):   
         if filename.is_file():
