@@ -3,7 +3,6 @@ import numpy as np
 import util
 
 
-
 class Statistics:
     def __init__(self) -> None:
         self.stats = {

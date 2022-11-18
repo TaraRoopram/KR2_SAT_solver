@@ -117,25 +117,6 @@ def dpll(clauses, assignments, experiments, heuristic, enable_elim_pure_literals
                     enable_elim_pure_literals=enable_elim_pure_literals)
 
 
-def run_experiments_for_heuristic():
-    pass
-
-
-def run_experiment_for_file():
-    filtered = []
-    for filename in os.scandir("data/dimacs/sudoku/9x9"):
-        if filename.is_file():
-            clauses = util.read_dimacs_file(f"data/dimacs/sudoku/9x9/{filename.name}")
-            experiments = Statistics()
-            experiments.set_initial_stats(clauses)
-
-            if experiments.stats["Number of givens"] >= 26:
-                filtered.append(experiments.stats["Number of givens"])
-
-    print(len(filtered))
-    print(max(filtered))
-
-
 def main():
     # clauses = util.read_dimacs_file("data/dimacs/sudoku/sudoku4.cnf")
     clauses = util.read_dimacs_file("data/dimacs/sudoku/9x9/dimacs_9x9_868.cnf")
