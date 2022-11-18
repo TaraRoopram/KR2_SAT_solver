@@ -1,14 +1,18 @@
+import util
+
+
 def moms(clauses, k):
     smallest_clauses = find_smallest_clauses(clauses)
     literal_moms_values = {}
     max_moms_value = -1
     max_moms_literal = clauses[0][0]
+    literal_count = util.count_literals(smallest_clauses)
 
     for clause in smallest_clauses:
         for literal in clause:
             if literal not in literal_moms_values:
-                f = count_occurrences(smallest_clauses, literal)
-                f_neg = count_occurrences(smallest_clauses, -literal)
+                f = literal_count[literal]
+                f_neg = literal_count[util.negate(literal)] if util.negate(literal) in literal_count else 0
                 s = ((f + f_neg) * (2 ** k)) + (f * f_neg)
                 if s > max_moms_value:
                     max_moms_value = s

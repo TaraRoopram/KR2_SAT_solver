@@ -5,10 +5,10 @@ def find_unit_clauses(clauses):
 
 def find_pure_literals(clauses):
     pure_literals = []
-    for c in clauses:
-        for l in c:
-            if is_pure_literal(l, clauses):
-                pure_literals.append([l])
+    literal_count = count_literals(clauses)
+    for l, c in literal_count.items():
+        if c > 0 and negate(l) not in literal_count:
+            pure_literals.append(l)
 
     return pure_literals
 
@@ -42,26 +42,6 @@ def negative(literal):
     return -abs(literal)
 
 
-def remove_literal_all_clauses(target_literal, clauses):
-    for clause in clauses:
-        for literal in clause:
-            if literal == target_literal:
-                clause.remove(literal)
-                # if len(clause) == 0:
-                #     clauses.remove(clause)
-
-    return clauses
-
-
-def remove_clauses_containing_literal(target_literal, clauses):
-    for clause in clauses:
-        for literal in clause:
-            if literal == target_literal:
-                clauses.remove(clause)
-
-    return clauses
-
-
 def count_literals(clauses):
     literal_count = {}
     for clause in clauses:
@@ -71,14 +51,6 @@ def count_literals(clauses):
             else:
                 literal_count[literal] = 1
     return literal_count
-
-
-def get_pures(literal_count):
-    pure_clauses = []
-    for literal, count in literal_count.items():
-        if negate(literal) not in literal_count:
-            pure_clauses.append(literal)
-    return pure_clauses
 
 
 def read_dimacs_file(path):
