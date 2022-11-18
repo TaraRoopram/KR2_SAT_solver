@@ -1,5 +1,7 @@
 import json
 import timeit
+# import numpy as np
+import util
 
 
 class Experiments:
@@ -14,6 +16,10 @@ class Experiments:
             "Number of clauses history": [],
             "Number of unit clauses history": [],
             "Number of pure literals history": [],
+            "Average number of clauses": 0.,
+            "Standard deviation number of clauses": 0.,
+            "Average number of unit clauses": 0.,
+            "Average number of pure literals": 0.,
             "Total runtime": 0.
         }
 
@@ -22,6 +28,21 @@ class Experiments:
         self.split_time = 0
         self.unit_propagation_time = 0
         self.backtracking_time = 0
+
+
+    def set_initial_conditions(self, clauses):
+        initial_number_of_clauses = len(clauses)
+        initial_number_of_unit_clauses = len(util.find_unit_clauses(clauses))
+        initial_number_of_pure_literals = len(util.find_pure_literals(clauses))
+
+        self.set_number_of_givens(clauses)
+        self.set_number_of_initial_clauses(initial_number_of_clauses)
+        self.set_number_of_unit_clauses(initial_number_of_unit_clauses)
+        self.set_number_of_pure_literals(initial_number_of_pure_literals)
+        self.update_number_of_clauses_history(initial_number_of_clauses)
+        self.update_number_of_unit_clauses_history(initial_number_of_unit_clauses)
+        self.update_number_of_pure_literals_history(initial_number_of_pure_literals)
+
 
     def set_number_of_givens(self, clauses):
         givens = list(filter(lambda c: len(c) == 1, clauses))
@@ -50,6 +71,18 @@ class Experiments:
 
     def update_number_of_pure_literals_history(self, num_pure_literals):
         self.stats["Number of pure literals history"].append(num_pure_literals)
+
+    def process_statistics(self):
+        pass
+
+    def mean_std_number_of_clauses_history(self, stat_name):
+        # mean = np.mean(self.stats[stat_name])
+        # std = np.std(self.stats[stat_name])
+
+        # self.stats["Average number of clauses"] = mean
+        # self.stats["Standard deviation number of clauses"] = std
+        pass
+
 
     def start_timer(self):
         self.start_time = timeit.default_timer()
