@@ -6,7 +6,7 @@ from heuristics.moms import moms
 from heuristics.dlcs import dlcs
 from heuristics.dlis import dlis
 from heuristics.bohms import bohms
-from experiments import Experiments
+from statistics import Statistics
 
 
 def propagate_unit_clauses(clauses, assignments, experiments):
@@ -36,8 +36,8 @@ def propagate_unit_clauses(clauses, assignments, experiments):
 
 def eliminate_pure_literals(clauses, assignments, experiments):
     pure_literals = util.find_pure_literals(clauses)
-    experiments.update_number_of_pure_literals_history(len(pure_literals))
-    for pure_literal in pure_literals:
+    for i in range(0, len(pure_literals)):
+        pure_literal = pure_literals[i]
         eliminated_pure_literals = []
 
         for clause in clauses:
@@ -50,6 +50,7 @@ def eliminate_pure_literals(clauses, assignments, experiments):
             elif pure_literal not in clause:
                 eliminated_pure_literals.append(clause)
 
+        experiments.update_number_of_pure_literals_history(len(pure_literals) - i)
         assignments[util.positive(pure_literal)] = pure_literal
         clauses = eliminated_pure_literals
 
@@ -72,6 +73,8 @@ def preprocessing(clauses):
 
 
 def decide_branch(heuristic, clauses):
+    if heuristic == Heuristic.BASE:
+        return clauses[0][0]
     if heuristic == Heuristic.DLCS:
         return dlcs(clauses)
     if heuristic == Heuristic.DLIS:
@@ -110,26 +113,21 @@ def dpll(clauses, assignments, experiments, heuristic, enable_elim_pure_literals
         return True
     else:
         experiments.inc_num_backtracks()
-        return dpll(clauses + [[p]], assignments, experiments, heuristic, enable_elim_pure_literals=enable_elim_pure_literals)
+        return dpll(clauses + [[p]], assignments, experiments, heuristic,
+                    enable_elim_pure_literals=enable_elim_pure_literals)
 
-
-# # iterate over files in directory
-# for filename in os.scandir("data/dimacs/sudoku/9x9"):
-#     for line in filename: 
-        
-#     if filename.is_file():
-#         print(filename.path)
 
 def run_experiments_for_heuristic():
     pass
 
+
 def run_experiment_for_file():
     filtered = []
-    for filename in os.scandir("data/dimacs/sudoku/9x9"):   
+    for filename in os.scandir("data/dimacs/sudoku/9x9"):
         if filename.is_file():
             clauses = util.read_dimacs_file(f"data/dimacs/sudoku/9x9/{filename.name}")
-            experiments = Experiments()
-            experiments.set_initial_conditions(clauses)
+            experiments = Statistics()
+            experiments.set_initial_stats(clauses)
 
             if experiments.stats["Number of givens"] >= 26:
                 filtered.append(experiments.stats["Number of givens"])
@@ -137,30 +135,30 @@ def run_experiment_for_file():
     print(len(filtered))
     print(max(filtered))
 
+
 def main():
+    # clauses = util.read_dimacs_file("data/dimacs/sudoku/sudoku4.cnf")
     clauses = util.read_dimacs_file("data/dimacs/sudoku/9x9/dimacs_9x9_868.cnf")
+
     assignments = {}
-    # bohms, moms, dlcs, dlis
-    experiments = Experiments()
-    experiments.set_initial_conditions(clauses)
+    experiments = Statistics()
+    experiments.set_initial_stats(clauses)
 
     experiments.start_timer()
-    heuristic = Heuristic.DLCS
+    heuristic = Heuristic.MOMS
     clauses = preprocessing(clauses)
     is_satisfiable = dpll(clauses, assignments, experiments, heuristic, enable_elim_pure_literals=True)
     experiments.stop_timer()
-
-
-    experiments.mean_std_number_of_clauses_history("Number of clauses history")
 
     print("sat" if is_satisfiable else "unsat")
     # print(f"assignments: {sorted(assignments.items())}")
     print(f"number of assignments: {len(assignments)}")
 
+    experiments.post_process_stats()
     print(experiments.to_string())
 
 
-main()
+# main()
 # run_experiment_for_file()
 
 # Helpful links

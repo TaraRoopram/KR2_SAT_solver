@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def find_unit_clauses(clauses):
     unit_clauses = filter(lambda c: len(c) == 1, clauses)
     return list(unit_clauses)
@@ -83,3 +86,9 @@ def parse_cnf(filename):
         clause = [int(x) for x in line[:-2].split()]
         clauses.append(clause)
     return clauses #, num_vars
+
+
+def calculate_mean_std(data):
+    mean = np.mean(data)
+    std = np.std(data)
+    return mean, std
