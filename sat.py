@@ -110,15 +110,14 @@ def main():
     experiments.set_number_of_unit_clauses(len(util.find_unit_clauses(clauses)))
     experiments.set_number_of_pure_literals(len(util.find_pure_literals(clauses)))
 
-    start = timeit.default_timer()
+    experiments.start_timer()
     clauses = preprocessing(clauses)
     is_satisfiable = dpll(clauses, assignments, experiments, enable_elim_pure_literals=True)
-    stop = timeit.default_timer()
+    experiments.stop_timer()
 
     print("sat" if is_satisfiable else "unsat")
     print(f"assignments: {sorted(assignments.items())}")
     print(f"number of assignments: {len(assignments)}")
-    print(f"runtime duration (s): {stop - start}")
 
     print(experiments.to_string())
 

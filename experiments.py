@@ -1,4 +1,5 @@
 import json
+import timeit
 
 
 class Experiments:
@@ -12,8 +13,15 @@ class Experiments:
             "Number of splits": 0,
             "Number of clauses history": [],
             "Number of unit clauses history": [],
-            "Number of pure literals history": []
+            "Number of pure literals history": [],
+            "Total runtime": 0.
         }
+
+        self.start_time = 0
+        self.end_time = 0
+        self.split_time = 0
+        self.unit_propagation_time = 0
+        self.backtracking_time = 0
 
     def set_number_of_givens(self, clauses):
         givens = list(filter(lambda c: len(c) == 1, clauses))
@@ -42,6 +50,14 @@ class Experiments:
 
     def update_number_of_pure_literals_history(self, num_pure_literals):
         self.stats["Number of pure literals history"].append(num_pure_literals)
+
+    def start_timer(self):
+        self.start_time = timeit.default_timer()
+
+    def stop_timer(self):
+        end_time = timeit.default_timer()
+        self.end_time = end_time
+        self.stats["Total runtime"] = end_time - self.start_time
 
     def to_string(self):
         stats_string = "\nSTATISTICS\n"
