@@ -3,6 +3,39 @@ import numpy as np
 import util
 
 
+class MetaStatistics:
+    def __init__(self):
+        self.stats = {
+            "base": self.generate_stats_template(),
+            "dlcs": self.generate_stats_template(),
+            "dlis": self.generate_stats_template(),
+            "moms": self.generate_stats_template(),
+            "bohms": self.generate_stats_template()
+        }
+
+    def update_mean(self, heuristic, meta_stat_name, stat_name, result, new_size):
+        new_value = result[stat_name]
+        mean = self.stats[heuristic][meta_stat_name]
+        mean += (new_value - mean) / new_size
+        self.stats[heuristic][meta_stat_name] = mean
+
+    def generate_stats_template(self):
+        return {
+            "Mean number of givens": 0.,
+            "Mean number of backtracks": 0.,
+            "Mean number of initial clauses": 0.,
+            "Mean number of initial unit clauses": 0.,
+            "Mean number of initial pure literals": 0.,
+            "Mean number of clauses after simplification": 0.,
+            "Mean number of remaining unit clauses per BCP application": 0.,
+            "Mean of the std. rate of change of clause frequency": 0.,
+            "Mean of the std. rate of change of unit clause frequency": 0.,
+            "Mean number of splits": 0.,
+            "Mean total runtime": 0.,
+
+        }
+
+
 class Statistics:
     def __init__(self) -> None:
         self.stats = {
@@ -23,8 +56,8 @@ class Statistics:
             "Std. number of unit clauses": 0.,
             "Mean number of pure literals": 0.,
             "Std. number of pure literals": 0.,
-            "Std. rate of change clause frequency": [],
-            "Std. rate of change unit clause frequency": [],
+            "Std. rate of change clause frequency": 0.,
+            "Std. rate of change unit clause frequency": 0.,
             "Total runtime": 0.
         }
 
