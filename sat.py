@@ -139,11 +139,4 @@ def main():
     print(experiments.to_string())
 
 
-# main()
-# run_experiment_for_file()
-
-# Helpful links
-# https://github.com/muneeb706/sudoku-solver/blob/master/basic_sudoku_solver/sudoku-solver.py
-# https://users.aalto.fi/~tjunttil/2020-DP-AUT/notes-sat/solving.html
-# https://github.com/DRTooley/PythonSatSolver --> implements three different algorithms incl. dpll
-# https://github.com/marcmelis/dpll-sat/blob/master/solvers/base_sat.py
+main()

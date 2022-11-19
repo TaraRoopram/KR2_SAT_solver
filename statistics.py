@@ -119,16 +119,3 @@ class Statistics:
             stats_string += f"{stat}: {value}\n"
 
         return stats_string
-
-# 1 dpll (no heuristic)
-# 2 dpll (with DLCS)
-# 3 dpll (with DLIS)
-# 4 dpll (with MOMS)
-# 5 dpll (with BOHMS)
-
-# runtime, number of backtracks, number of splits, number of intial clauses, 
-# number of clauses over time, number of unit clauses over time, number of pure literals over time
-
-
-# https://github.com/sgomber/CDCL-SAT/blob/master/SAT.py
-# https://www.scitepress.org/Papers/2022/109102/109102.pdf
