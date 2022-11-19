@@ -1,0 +1,67 @@
+{
+   "base": {
+      "Mean number of givens": 26.370491803278675,
+      "Mean number of backtracks": 3.619672131147542,
+      "Mean number of initial clauses": 12014.370491803287,
+      "Mean number of initial unit clauses": 26.370491803278675,
+      "Mean number of initial pure literals": 0.0,
+      "Mean number of clauses after simplification": 4072.2532148561036,
+      "Mean number of remaining unit clauses per BCP application": 477.65602955315654,
+      "Mean of the std. rate of change of clause frequency": 2733.859114699864,
+      "Mean of the std. rate of change of unit clause frequency": 13.4472953344881,
+      "Mean number of splits": 5.577049180327867,
+      "Mean total runtime": 3.815928771147522
+   },
+   "dlcs": {
+      "Mean number of givens": 26.370491803278675,
+      "Mean number of backtracks": 108.65901639344267,
+      "Mean number of initial clauses": 12014.370491803287,
+      "Mean number of initial unit clauses": 26.370491803278675,
+      "Mean number of initial pure literals": 0.0,
+      "Mean number of clauses after simplification": 2955.926094892583,
+      "Mean number of remaining unit clauses per BCP application": 268.84420168271623,
+      "Mean of the std. rate of change of clause frequency": 1086.4929956585295,
+      "Mean of the std. rate of change of unit clause frequency": 17.34246292925167,
+      "Mean number of splits": 118.37377049180327,
+      "Mean total runtime": 7.582155073114752
+   },
+   "dlis": {
+      "Mean number of givens": 26.370491803278675,
+      "Mean number of backtracks": 5.262295081967213,
+      "Mean number of initial clauses": 12014.370491803287,
+      "Mean number of initial unit clauses": 26.370491803278675,
+      "Mean number of initial pure literals": 0.0,
+      "Mean number of clauses after simplification": 4018.552181720438,
+      "Mean number of remaining unit clauses per BCP application": 450.21661991262647,
+      "Mean of the std. rate of change of clause frequency": 2626.637976680293,
+      "Mean of the std. rate of change of unit clause frequency": 13.510503627627108,
+      "Mean number of splits": 7.0754098360655755,
+      "Mean total runtime": 3.966006022295097
+   },
+   "moms": {
+      "Mean number of givens": 26.370491803278675,
+      "Mean number of backtracks": 3.0393442622950824,
+      "Mean number of initial clauses": 12014.370491803287,
+      "Mean number of initial unit clauses": 26.370491803278675,
+      "Mean number of initial pure literals": 0.0,
+      "Mean number of clauses after simplification": 4134.941911122779,
+      "Mean number of remaining unit clauses per BCP application": 486.5142781731855,
+      "Mean of the std. rate of change of clause frequency": 2781.107956317956,
+      "Mean of the std. rate of change of unit clause frequency": 13.435453933076584,
+      "Mean number of splits": 4.331147540983608,
+      "Mean total runtime": 3.7824934275409747
+   },
+   "bohms": {
+      "Mean number of givens": 26.370491803278675,
+      "Mean number of backtracks": 10.813114754098358,
+      "Mean number of initial clauses": 12014.370491803287,
+      "Mean number of initial unit clauses": 26.370491803278675,
+      "Mean number of initial pure literals": 0.0,
+      "Mean number of clauses after simplification": 3587.937721561908,
+      "Mean number of remaining unit clauses per BCP application": 414.5888138283351,
+      "Mean of the std. rate of change of clause frequency": 2207.8109120353347,
+      "Mean of the std. rate of change of unit clause frequency": 13.92372036521991,
+      "Mean number of splits": 13.68852459016393,
+      "Mean total runtime": 4.218539366229511
+   }
+}

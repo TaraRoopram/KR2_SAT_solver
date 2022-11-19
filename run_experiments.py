@@ -62,7 +62,7 @@ def run_total_experiment(results, heuristics):
                                    "Mean total runtime",
                                    "Total runtime", result, i + 1)
 
-    print(json.dumps(meta_stats.stats, indent=3))
+    return meta_stats
 
 
 def run_experiments_on_filtered_sudoku(num_givens_threshold, heuristics):
@@ -106,13 +106,17 @@ def read_experiment_results(num_givens_threshold):
 
 
 def save_experiment_results(results, num_givens_threshold):
-    with open(f"data/experiments/results_{num_givens_threshold}_givens.json", "w+") as file:
+    with open(f"data/experiments/unprocessed/unprocessed_results_{num_givens_threshold}_givens.json", "w+") as file:
         json.dump(results, file, indent=3)
 
 
 heuristics = [Heuristic.BASE, Heuristic.DLCS, Heuristic.DLIS, Heuristic.MOMS, Heuristic.BOHMS]
-results = read_experiment_results(26)
-run_total_experiment(results, heuristics)
+num_givens_threshold = 26
+results = read_experiment_results(num_givens_threshold)
+meta_stats = run_total_experiment(results, heuristics)
+
+with open(f"data/experiments/processed/processed_results_{num_givens_threshold}_givens.json", "w+") as file:
+    json.dump(meta_stats.stats, file, indent=3)
 
 # num_givens_threshold = 26
 # heuristics = [Heuristic.BASE, Heuristic.DLCS, Heuristic.DLIS, Heuristic.MOMS, Heuristic.BOHMS]

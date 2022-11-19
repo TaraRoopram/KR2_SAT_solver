@@ -1,3 +1,5 @@
+import json
+
 import numpy as np
 
 
@@ -71,6 +73,11 @@ def read_dimacs_file(path):
         return clauses
 
 
+def read_json_file(file):
+    with open(file, "r") as file:
+        return json.load(file)
+
+
 def parse_cnf(filename):
     '''
     Input: file with all clauses in DIMACS format
@@ -85,7 +92,7 @@ def parse_cnf(filename):
             continue
         clause = [int(x) for x in line[:-2].split()]
         clauses.append(clause)
-    return clauses #, num_vars
+    return clauses  # , num_vars
 
 
 def calculate_mean_std(data):
