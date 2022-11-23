@@ -49,6 +49,10 @@ def plot_num_unit_clauses_over_time(unprocessed_results, file_name):
     plt.show()
 
 
-unprocessed_results = util.read_json_file("../data/experiments/results_26_givens.json")
-plot_num_clauses_over_time(unprocessed_results, "dimacs_9x9_1004.cnf")
-plot_num_unit_clauses_over_time(unprocessed_results, "dimacs_9x9_1004.cnf")
+unprocessed_results = util.read_json_file("../data/experiments/unprocessed/unprocessed_results_27_givens.json")
+
+file_names = [926, 994, 925, 1000]
+for name in file_names:
+    plot_num_clauses_over_time(unprocessed_results, f"dimacs_9x9_{str(name)}.cnf")
+
+# plot_num_unit_clauses_over_time(unprocessed_results, "dimacs_9x9_1004.cnf")

@@ -58,6 +58,12 @@ def count_literals(clauses):
     return literal_count
 
 
+def get_random_literal(clauses):
+    for i in range(0, len(clauses)):
+        for j in range(0, len(clauses[i])):
+            pass
+
+
 def read_dimacs_file(path):
     with open(f"{path}") as file:
         header = file.readline().split(" ")
@@ -76,6 +82,11 @@ def read_dimacs_file(path):
 def read_json_file(file):
     with open(file, "r") as file:
         return json.load(file)
+
+
+def write_json_file(file_name, contents):
+    with open(file_name, "w+") as file:
+        json.dump(contents, file, indent=3)
 
 
 def parse_cnf(filename):
@@ -99,3 +110,5 @@ def calculate_mean_std(data):
     mean = np.mean(data)
     std = np.std(data)
     return mean, std
+
+

@@ -7,7 +7,7 @@ def dlis(clauses):
     max_v = -1
     for l in literal_count:
         c_p = literal_count[l]
-        c_n = literal_count[util.negate(l)]
+        c_n = literal_count[util.negate(l)] if util.negate(l) in literal_count else 0
         if c_p > max_c_pn:
             max_c_pn = c_p
             max_v = l

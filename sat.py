@@ -105,6 +105,8 @@ def dpll(clauses, assignments, experiments, heuristic, enable_elim_pure_literals
         if len(clause) == 0:
             return False
 
+    experiments.update_mean_clause_length(clauses)
+
     p = decide_branch(heuristic, clauses)
     experiments.inc_num_splits()
 
@@ -126,7 +128,7 @@ def main():
     experiments.set_initial_stats(clauses)
 
     experiments.start_timer()
-    heuristic = Heuristic.MOMS
+    heuristic = Heuristic.DLCS
     clauses = preprocessing(clauses)
     is_satisfiable = dpll(clauses, assignments, experiments, heuristic, enable_elim_pure_literals=True)
     experiments.stop_timer()
@@ -139,4 +141,4 @@ def main():
     print(experiments.to_string())
 
 
-# main()
+main()
