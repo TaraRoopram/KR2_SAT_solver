@@ -1,6 +1,7 @@
 import json
 
 import numpy as np
+from heuristics.heuristics import Heuristic
 
 
 def find_unit_clauses(clauses):
@@ -76,7 +77,7 @@ def read_dimacs_file(path):
                 parsed = [int(var) for var in parsed]
                 clauses.append(parsed)
 
-        return clauses
+        return clauses, num_variables
 
 
 def read_json_file(file):
@@ -112,3 +113,37 @@ def calculate_mean_std(data):
     return mean, std
 
 
+def parse_heuristic(input_str):
+    match input_str:
+        case "-S1":
+            return Heuristic.BASE
+
+        case "-S2":
+            return Heuristic.DLCS
+
+        case "-S3":
+            return Heuristic.DLIS
+
+        case "-S4":
+            return Heuristic.MOMS
+
+        case "-S5":
+            return Heuristic.BOHMS
+
+def write_file_out(filename, sat, assignment, number_variables):
+    '''
+        input: -filename - 
+        output: dimacs file with truth assignments to all variables (729). -> filename.out
+    '''
+    output_file = open(f'{filename}.out', 'w')
+    if sat:
+        print('SAT')
+        print(f"File with assignments can be found in the same directory as input file as: <{filename}.out>")
+        output_file.write(f"p cnf {number_variables} {number_variables}\n")
+        for list in assignment:
+            dimacs_assignment = f"{list[1]} 0\n"
+            output_file.write(dimacs_assignment)
+    else:
+        output_file.write('')
+
+    output_file.close()

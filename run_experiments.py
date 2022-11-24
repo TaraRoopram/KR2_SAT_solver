@@ -6,7 +6,7 @@ import util
 import os
 
 from statistics import Statistics, MetaStatistics
-from sat import dpll, preprocessing
+from SAT import dpll, preprocessing
 from heuristics.heuristics import Heuristic
 
 
@@ -119,7 +119,8 @@ def filter_sudokus_num_givens(num_givens_threshold):
     filtered = []
     for filename in os.scandir("data/dimacs/sudoku/9x9"):
         if filename.is_file():
-            clauses = util.read_dimacs_file(f"data/dimacs/sudoku/9x9/{filename.name}")
+            clauses = util.read_dimacs_file(
+                f"data/dimacs/sudoku/9x9/{filename.name}")
             temp_stats = Statistics()
             temp_stats.set_number_of_givens(clauses)
             num_givens = temp_stats.stats["Number of givens"]
@@ -134,7 +135,8 @@ def run_experiments_on_filtered_sudoku(num_givens_threshold, heuristics):
     results_list = []
     for filename in os.scandir("data/dimacs/sudoku/9x9"):
         if filename.is_file():
-            clauses = util.read_dimacs_file(f"data/dimacs/sudoku/9x9/{filename.name}")
+            clauses = util.read_dimacs_file(
+                f"data/dimacs/sudoku/9x9/{filename.name}")
             temp_stats = Statistics()
             temp_stats.set_number_of_givens(clauses)
             num_givens = temp_stats.stats["Number of givens"]
@@ -158,7 +160,8 @@ def run_experiment_on_sudoku(clauses, heuristic):
     clauses = preprocessing(clauses)
 
     statistics.start_timer()
-    is_satisfiable = dpll(clauses, assignments, statistics, heuristic, enable_elim_pure_literals=True)
+    is_satisfiable = dpll(clauses, assignments, statistics,
+                          heuristic, enable_elim_pure_literals=True)
     statistics.stop_timer()
 
     statistics.post_process_stats()
@@ -176,14 +179,19 @@ def run_experiment_on_list_statistics(heuristics, results):
             results_dict[heuristic.value][key] = {}
             result = results[heuristic.value][f"List {key}"]
 
-            results_dict[heuristic.value][key][f"Mean {key}"] = float(np.mean(result))
-            results_dict[heuristic.value][key][f"Std. {key}"] = float(np.std(result))
-            results_dict[heuristic.value][key][f"Max {key}"] = float(np.max(result))
-            results_dict[heuristic.value][key][f"Min {key}"] = float(np.min(result))
-            results_dict[heuristic.value][key][f"Range {key}"] = float(np.max(result) - np.min(result))
+            results_dict[heuristic.value][key][f"Mean {key}"] = float(
+                np.mean(result))
+            results_dict[heuristic.value][key][f"Std. {key}"] = float(
+                np.std(result))
+            results_dict[heuristic.value][key][f"Max {key}"] = float(
+                np.max(result))
+            results_dict[heuristic.value][key][f"Min {key}"] = float(
+                np.min(result))
+            results_dict[heuristic.value][key][f"Range {key}"] = float(
+                np.max(result) - np.min(result))
 
-    util.write_json_file("data/experiments/final/final_results_26_givens.json", results_dict)
-
+    util.write_json_file(
+        "data/experiments/final/final_results_26_givens.json", results_dict)
 
 
 def read_experiment_results(num_givens_threshold):
@@ -196,17 +204,15 @@ def save_experiment_results(results, num_givens_threshold):
         json.dump(results, file, indent=3)
 
 
-
-
 # num_givens_threshold = 27
 # results = read_experiment_results(num_givens_threshold)
 # meta_stats = run_total_experiment(results, heuristics)
 #
 # with open(f"data/experiments/processed/processed_results_{num_givens_threshold}_givens_v2.json", "w+") as file:
 #     json.dump(meta_stats.stats, file, indent=3)
-
 num_givens_threshold = 27
-heuristics = [Heuristic.BASE, Heuristic.DLCS, Heuristic.DLIS, Heuristic.MOMS, Heuristic.BOHMS]
+heuristics = [Heuristic.BASE, Heuristic.DLCS,
+              Heuristic.DLIS, Heuristic.MOMS, Heuristic.BOHMS]
 results = run_experiments_on_filtered_sudoku(num_givens_threshold, heuristics)
 save_experiment_results(results, num_givens_threshold)
 
