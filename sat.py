@@ -80,7 +80,7 @@ def preprocessing(clauses):
 
 def decide_branch(heuristic, clauses):
     if heuristic == Heuristic.BASE:
-        return clauses[0][0]
+        return util.get_random_literal(clauses)
     if heuristic == Heuristic.DLCS:
         return dlcs(clauses)
     if heuristic == Heuristic.DLIS:

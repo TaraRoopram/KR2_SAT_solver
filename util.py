@@ -60,9 +60,9 @@ def count_literals(clauses):
 
 
 def get_random_literal(clauses):
-    for i in range(0, len(clauses)):
-        for j in range(0, len(clauses[i])):
-            pass
+    random_clause = np.random.choice(clauses)
+    random_literal_i = np.random.choice(len(random_clause))
+    return random_clause[random_literal_i]
 
 
 def read_dimacs_file(path):

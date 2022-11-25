@@ -1,0 +1,187 @@
+{
+   "base": {
+      "total runtime": {
+         "Mean total runtime": 4.729477067368425,
+         "Std. total runtime": 0.7571930464091278,
+         "Max total runtime": 6.694435599999906,
+         "Min total runtime": 1.6434293999991496,
+         "Range total runtime": 5.0510062000007565
+      },
+      "number of backtracks": {
+         "Mean number of backtracks": 4.021052631578947,
+         "Std. number of backtracks": 6.446506924183492,
+         "Max number of backtracks": 55.0,
+         "Min number of backtracks": 0.0,
+         "Range number of backtracks": 55.0
+      },
+      "number of simplifications": {
+         "Mean number of simplifications": 6.7894736842105265,
+         "Std. number of simplifications": 6.666325014329552,
+         "Max number of simplifications": 56.0,
+         "Min number of simplifications": 1.0,
+         "Range number of simplifications": 55.0
+      },
+      "number of BCP applications": {
+         "Mean number of BCP applications": 971.0,
+         "Std. number of BCP applications": 319.74177080888256,
+         "Max number of BCP applications": 2802.0,
+         "Min number of BCP applications": 729.0,
+         "Range number of BCP applications": 2073.0
+      },
+      "mean number of clauses removed": {
+         "Mean mean number of clauses removed": 3335.3511750968337,
+         "Std. mean number of clauses removed": 2958.9776022995356,
+         "Max mean number of clauses removed": 12016.0,
+         "Min mean number of clauses removed": 504.2142857142857,
+         "Range mean number of clauses removed": 11511.785714285714
+      }
+   },
+   "dlcs": {
+      "total runtime": {
+         "Mean total runtime": 9.696693425263144,
+         "Std. total runtime": 8.318633380630379,
+         "Max total runtime": 65.56866669999908,
+         "Min total runtime": 1.7602860999995755,
+         "Range total runtime": 63.80838059999951
+      },
+      "number of backtracks": {
+         "Mean number of backtracks": 113.28421052631579,
+         "Std. number of backtracks": 160.31302689674902,
+         "Max number of backtracks": 1201.0,
+         "Min number of backtracks": 0.0,
+         "Range number of backtracks": 1201.0
+      },
+      "number of simplifications": {
+         "Mean number of simplifications": 125.02105263157895,
+         "Std. number of simplifications": 161.5436704161557,
+         "Max number of simplifications": 1214.0,
+         "Min number of simplifications": 1.0,
+         "Range number of simplifications": 1213.0
+      },
+      "number of BCP applications": {
+         "Mean number of BCP applications": 4919.8,
+         "Std. number of BCP applications": 6137.5145622723585,
+         "Max number of BCP applications": 47935.0,
+         "Min number of BCP applications": 729.0,
+         "Range number of BCP applications": 47206.0
+      },
+      "mean number of clauses removed": {
+         "Mean mean number of clauses removed": 1365.88031529529,
+         "Std. mean number of clauses removed": 3359.8618577924194,
+         "Max mean number of clauses removed": 12016.0,
+         "Min mean number of clauses removed": 30.536895674300254,
+         "Range mean number of clauses removed": 11985.4631043257
+      }
+   },
+   "dlis": {
+      "total runtime": {
+         "Mean total runtime": 4.918196870526352,
+         "Std. total runtime": 0.84255928932406,
+         "Max total runtime": 7.599283500000013,
+         "Min total runtime": 1.6025202999990142,
+         "Range total runtime": 5.9967632000009985
+      },
+      "number of backtracks": {
+         "Mean number of backtracks": 6.2105263157894735,
+         "Std. number of backtracks": 7.7553305767433685,
+         "Max number of backtracks": 55.0,
+         "Min number of backtracks": 0.0,
+         "Range number of backtracks": 55.0
+      },
+      "number of simplifications": {
+         "Mean number of simplifications": 8.873684210526315,
+         "Std. number of simplifications": 8.243966987424846,
+         "Max number of simplifications": 56.0,
+         "Min number of simplifications": 1.0,
+         "Range number of simplifications": 55.0
+      },
+      "number of BCP applications": {
+         "Mean number of BCP applications": 1118.1894736842105,
+         "Std. number of BCP applications": 433.70201496411505,
+         "Max number of BCP applications": 2802.0,
+         "Min number of BCP applications": 729.0,
+         "Range number of BCP applications": 2073.0
+      },
+      "mean number of clauses removed": {
+         "Mean mean number of clauses removed": 3031.512922197591,
+         "Std. mean number of clauses removed": 3054.2379240599557,
+         "Max mean number of clauses removed": 12016.0,
+         "Min mean number of clauses removed": 485.19354838709677,
+         "Range mean number of clauses removed": 11530.806451612903
+      }
+   },
+   "moms": {
+      "total runtime": {
+         "Mean total runtime": 4.5658475673684435,
+         "Std. total runtime": 0.686470931991506,
+         "Max total runtime": 6.287949699999899,
+         "Min total runtime": 1.6297027000000526,
+         "Range total runtime": 4.658246999999847
+      },
+      "number of backtracks": {
+         "Mean number of backtracks": 2.968421052631579,
+         "Std. number of backtracks": 3.7681564152889284,
+         "Max number of backtracks": 21.0,
+         "Min number of backtracks": 0.0,
+         "Range number of backtracks": 21.0
+      },
+      "number of simplifications": {
+         "Mean number of simplifications": 5.378947368421053,
+         "Std. number of simplifications": 4.034532379786498,
+         "Max number of simplifications": 23.0,
+         "Min number of simplifications": 1.0,
+         "Range number of simplifications": 22.0
+      },
+      "number of BCP applications": {
+         "Mean number of BCP applications": 915.5684210526316,
+         "Std. number of BCP applications": 246.35039882811247,
+         "Max number of BCP applications": 2258.0,
+         "Min number of BCP applications": 729.0,
+         "Range number of BCP applications": 1529.0
+      },
+      "mean number of clauses removed": {
+         "Mean mean number of clauses removed": 3878.344935556359,
+         "Std. mean number of clauses removed": 2915.5798267545665,
+         "Max mean number of clauses removed": 12016.0,
+         "Min mean number of clauses removed": 786.5294117647059,
+         "Range mean number of clauses removed": 11229.470588235294
+      }
+   },
+   "bohms": {
+      "total runtime": {
+         "Mean total runtime": 81.84997958526317,
+         "Std. total runtime": 743.3849353957914,
+         "Max total runtime": 7289.2244971,
+         "Min total runtime": 1.6813503999983368,
+         "Range total runtime": 7287.543146700002
+      },
+      "number of backtracks": {
+         "Mean number of backtracks": 11.294736842105262,
+         "Std. number of backtracks": 14.20887319819298,
+         "Max number of backtracks": 70.0,
+         "Min number of backtracks": 0.0,
+         "Range number of backtracks": 70.0
+      },
+      "number of simplifications": {
+         "Mean number of simplifications": 14.905263157894737,
+         "Std. number of simplifications": 14.571835620531841,
+         "Max number of simplifications": 72.0,
+         "Min number of simplifications": 1.0,
+         "Range number of simplifications": 71.0
+      },
+      "number of BCP applications": {
+         "Mean number of BCP applications": 1327.9368421052632,
+         "Std. number of BCP applications": 751.0501393386155,
+         "Max number of BCP applications": 3677.0,
+         "Min number of BCP applications": 729.0,
+         "Range number of BCP applications": 2948.0
+      },
+      "mean number of clauses removed": {
+         "Mean mean number of clauses removed": 2649.7596490078054,
+         "Std. mean number of clauses removed": 3276.721665379786,
+         "Max mean number of clauses removed": 12016.0,
+         "Min mean number of clauses removed": 208.46268656716418,
+         "Range mean number of clauses removed": 11807.537313432837
+      }
+   }
+}
