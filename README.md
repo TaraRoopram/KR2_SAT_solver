@@ -53,7 +53,7 @@ heuristic_tag:
 - -S2 : DPLL with DLCS heuristic
 - -S3 : DPLL with DLIS heuristic
 - -S4 : DPLL with MOM's heurstic
-- -S5 : DPLL with Böhm's heuristic
+- -S5 : DPLL with Bohm's heuristic
 
 filename:
 
