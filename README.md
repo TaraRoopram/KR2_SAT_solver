@@ -7,32 +7,27 @@
 
 ---
 
-<p align="center"> Few lines describing your project.
-    <br> 
-</p>
-
 ## 📝 Table of Contents
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
 - [Usage](#usage)
 
 ## 🧐 About <a name = "about"></a>
 
-Basic SAT solver, with optionally DLCS, DLIS, BOHMS, MOMS heuristics. If the problem is satisfiable one solution is returned.
+Basic SAT solver, with optionally DLCS, DLIS, Böhm's, MOM's heuristics. If the problem is satisfiable one solution is returned.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you our project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-- python version 3.10 or higher.
+- Python version 3.10 or higher.
 
 ### Installing
 
-Clone the repository
+Clone the repository 
 
 ```
 git clone git@github.com:TaraRoopram/KR2_SAT_solver.git
@@ -57,8 +52,8 @@ heuristic_tag:
 - -S1 : DPLL basic / no heuristic
 - -S2 : DPLL with DLCS heuristic
 - -S3 : DPLL with DLIS heuristic
-- -S4 : DPLL with MOMS heurstic
-- -S5 : DPLL with BOHMS heuristic
+- -S4 : DPLL with MOM's heurstic
+- -S5 : DPLL with Böhm's heuristic
 
 filename:
 
@@ -68,7 +63,7 @@ filename:
 
 ### Example
 
-Example code for running the SAT solver with DLCS heuristic for file 'dimacs_4x4_1.cnf'
+Example code for running the SAT solver with MOM's heuristic for file 'dimacs_4x4_1.cnf'
 
 ```
 python sat.py -S4 dimacs_4x4_1
