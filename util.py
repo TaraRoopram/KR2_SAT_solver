@@ -138,7 +138,7 @@ def write_file_out(filename, sat, assignment, number_variables):
     output_file = open(f'{filename}.out', 'w')
     if sat:
         print('SAT')
-        print(f"File with assignments can be found in the same directory as input file as: <{filename}.out>")
+        print(f"File with assignments can be found in the same directory as input file: <{filename}.out>")
         output_file.write(f"p cnf {number_variables} {number_variables}\n")
         for list in assignment:
             dimacs_assignment = f"{list[1]} 0\n"
